@@ -5,8 +5,13 @@ import { Button } from "@/components/ui/button";
 import InputField from "@/components/forms/InputField";
 import FooterLink from "@/components/forms/FooterLink";
 import { EMAIL_VALIDATION_PATTERN } from "@/lib/patterns";
+import { singInWithEmail } from "@/lib/actions/auth.actions";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const SignIn = () => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -21,9 +26,17 @@ const SignIn = () => {
 
   const onSubmit = async (data: SignInFormData) => {
     try {
-      console.log(data);
-    } catch (e) {
-      console.error(e);
+      const result = await singInWithEmail(data);
+
+      if (result.success) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Sign in failed.", {
+        description:
+          error instanceof Error ? error.message : "Failed  to sign in.",
+      });
     }
   };
 
