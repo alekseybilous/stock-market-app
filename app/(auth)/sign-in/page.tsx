@@ -4,6 +4,7 @@ import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import InputField from "@/components/forms/InputField";
 import FooterLink from "@/components/forms/FooterLink";
+import { EMAIL_VALIDATION_PATTERN } from "@/lib/patterns";
 
 const SignIn = () => {
   const {
@@ -34,12 +35,13 @@ const SignIn = () => {
         <InputField
           name="email"
           label="Email"
+          type="email"
           placeholder="contact@jsmastery.com"
           register={register}
           error={errors.email}
           validation={{
             required: "Email is required",
-            pattern: /^\w+@\w+\.\w+$/,
+            pattern: EMAIL_VALIDATION_PATTERN,
           }}
         />
 

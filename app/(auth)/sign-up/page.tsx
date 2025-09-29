@@ -11,6 +11,7 @@ import {
 } from "@/lib/constants";
 import { CountrySelectField } from "@/components/forms/CountrySelectField";
 import FooterLink from "@/components/forms/FooterLink";
+import { EMAIL_VALIDATION_PATTERN } from "@/lib/patterns";
 
 const SignUpPage = () => {
   const {
@@ -56,13 +57,14 @@ const SignUpPage = () => {
         <InputField
           name="email"
           label="Email"
+          type="email"
           placeholder="JohnDoe@gmail.com"
           register={register}
           error={errors.email}
           validation={{
             required: "Email is required",
             minLength: 2,
-            pattern: /^\w+@\w+\.\w+$/,
+            pattern: EMAIL_VALIDATION_PATTERN,
             message: "Email address is required",
           }}
         />
