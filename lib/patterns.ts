@@ -1,0 +1,1 @@
+export const EMAIL_VALIDATION_PATTERN = /^\w+@\w+\.\w+$/
