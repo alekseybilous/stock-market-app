@@ -39,8 +39,6 @@ const SelectField = ({
                   {label}
                 </SelectItem>
               ))}
-              <SelectItem value="dark">Dark</SelectItem>
-              <SelectItem value="system">System</SelectItem>
             </SelectContent>
 
             {error && <p className="text-sm text-red-500">{error.message}</p>}

@@ -12,8 +12,13 @@ import {
 import { CountrySelectField } from "@/components/forms/CountrySelectField";
 import FooterLink from "@/components/forms/FooterLink";
 import { EMAIL_VALIDATION_PATTERN } from "@/lib/patterns";
+import { signUpWithEmail } from "@/lib/actions/auth.actions";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 const SignUpPage = () => {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -34,9 +39,19 @@ const SignUpPage = () => {
 
   const onSubmit: SubmitHandler<SignUpFormData> = async (data) => {
     try {
-      console.log(data);
-    } catch (e) {
-      console.error(e);
+      const result = await signUpWithEmail(data);
+
+      if (result?.success) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Sign up failed.", {
+        description:
+          error instanceof Error
+            ? error.message
+            : "Failed  to create an account.",
+      });
     }
   };
 
@@ -125,7 +140,11 @@ const SignUpPage = () => {
           {isSubmitting ? "Creating account" : "Start Your Investment journey"}
         </Button>
 
-        <FooterLink text="Already have an account" linkText="Sign in" href="/sign-in" />
+        <FooterLink
+          text="Already have an account"
+          linkText="Sign in"
+          href="/sign-in"
+        />
       </form>
     </>
   );
